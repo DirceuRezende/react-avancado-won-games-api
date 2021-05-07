@@ -7,7 +7,12 @@
 
 module.exports = {
   populate: async (ctx) => {
-    await strapi.services.game.populate();
+    const options = {
+      sort: "popularity",
+      page: "1",
+      ...ctx.query,
+    };
+    await strapi.services.game.populate(options);
     ctx.send({ ok: true });
   }
 };
