@@ -1,3 +1,1 @@
-# Strapi application
-
-A quick description of your strapi application
+# API do Projeto WonGames do Curso React Avançado
