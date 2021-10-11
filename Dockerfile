@@ -5,7 +5,12 @@ WORKDIR /opt/app
 COPY ./package.json ./
 COPY ./yarn.lock ./
 
-RUN yarn install --prod
+RUN apk --no-cache --virtual build-dependencies add \
+        python \
+        make \
+        g++ \
+&& yarn install --production \
+&& apk del build-dependencies
 
 RUN npx browserslist@latest --update-db
 
