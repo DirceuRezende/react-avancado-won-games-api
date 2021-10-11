@@ -1,21 +1,21 @@
-FROM strapi/base:12
+FROM strapi/strapi:3.1.5-node12
 
-WORKDIR /opt/app
+WORKDIR /srv/app
 
 COPY ./package.json ./
 COPY ./yarn.lock ./
 
-RUN yarn install --production
+ENV NODE_ENV production
+ENV DATABASE_CLIENT=postgres
+
+RUN yarn install --prod
 
 RUN npx browserslist@latest --update-db
 
 COPY . .
 
-ENV NODE_ENV production
-ENV DATABASE_CLIENT=postgres
-
-
-RUN yarn build
+RUN yarn build --clean
 
 EXPOSE 1337
+
 CMD ["yarn", "start"]
