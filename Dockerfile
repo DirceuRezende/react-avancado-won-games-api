@@ -3,18 +3,19 @@ FROM strapi/strapi:3.1.5-node12
 WORKDIR /srv/app
 
 COPY ./package.json ./
+COPY ./yarn.lock ./
 
 ENV NODE_ENV production
 ENV DATABASE_CLIENT=postgres
 
-RUN npm install --only=prod
+RUN yarn install --prod --network-timeout 600000
 
 RUN npx browserslist@latest --update-db
 
 COPY . .
 
-RUN npm run build --clean
+RUN yarn build
 
 EXPOSE 1337
 
-CMD ["npm", "start"]
+CMD ["yarn", "start"]
