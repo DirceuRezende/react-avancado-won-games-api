@@ -8,9 +8,7 @@ COPY ./yarn.lock ./
 ENV NODE_ENV production
 ENV DATABASE_CLIENT=postgres
 
-RUN yarn install --prod --network-timeout 600000
-
-RUN npx browserslist@latest --update-db
+RUN yarn install
 
 COPY . .
 
